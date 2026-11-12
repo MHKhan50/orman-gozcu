@@ -7,3 +7,4 @@
 - **Regions** are simple longitude bands, not ecological or administrative regions.
 - **2021** was an exceptional season in south-western Türkiye; it is part of the test set on purpose, and per-year results are reported.
 - This is a research benchmark, not an operational warning system.
+- **Border and coast.** Detections are assigned to Türkiye with a Natural Earth 10 m outline. A 375 m pixel on the coast or right at a land border can fall on the wrong side, so a few coastal or cross-border detections may be dropped or kept by mistake.

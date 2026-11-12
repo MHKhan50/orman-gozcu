@@ -4,7 +4,7 @@
 Given today's satellite fire detections and weather, which 0.5-degree cells in Türkiye will have at least one fire detection tomorrow?
 
 ## Data
-- **Fires:** NASA FIRMS VIIRS S-NPP 375 m, standard processing (`VIIRS_SNPP_SP`), country query for Türkiye, 1 May to 31 October. Low-confidence detections and non-vegetation types (static land sources, offshore) are dropped.
+- **Fires:** NASA FIRMS VIIRS S-NPP 375 m, standard processing (`VIIRS_SNPP_SP`), area query for the rectangle 25.5-45.0 E, 35.5-42.5 N (the FIRMS country API does not serve the standard-processing archive), kept only if inside the Türkiye border (Natural Earth 10 m Admin-0, public domain), 1 May to 31 October. Low-confidence detections and non-vegetation types (static land sources, offshore) are dropped.
 - **Weather:** ERA5 daily values from the Open-Meteo historical archive (`models=era5`): maximum 2 m temperature, precipitation, maximum 10 m wind speed and FAO reference evapotranspiration. One point per 1-degree block (2 x 2 fire cells) to stay within the free API allowance.
 - **Not used in v0.1:** ESA WorldCover land cover and EFFIS statistics. Both are listed in `docs/SOURCES.md` for the next version.
 

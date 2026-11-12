@@ -14,3 +14,6 @@ dependencies = ["numpy>=1.24", "pandas>=1.5", "scikit-learn>=1.3", "matplotlib>=
 
 [tool.setuptools]
 packages = ["ormangozcu"]
+
+[tool.setuptools.package-data]
+ormangozcu = ["turkiye_border.json"]

@@ -37,13 +37,17 @@ class Firms(unittest.TestCase):
         self.assertTrue(all(n <= 5 for _, n in firms.season_chunks(2021)))
 
     def test_filters(self):
-        self.assertFalse(firms.keep({"confidence": "l", "type": "0"}))
-        self.assertFalse(firms.keep({"confidence": "h", "type": "2"}))
-        self.assertTrue(firms.keep({"confidence": "n", "type": "0"}))
+        inside = {"latitude": "39.93", "longitude": "32.86"}  # Ankara
+        self.assertFalse(firms.keep(dict(inside, confidence="l", type="0")))
+        self.assertFalse(firms.keep(dict(inside, confidence="h", type="2")))
+        self.assertTrue(firms.keep(dict(inside, confidence="n", type="0")))
+        # inside the query rectangle but outside Türkiye (northern Iraq, the Aegean sea, Cyprus)
+        for lat, lon in [("35.627", "44.006"), ("37.8", "26.3"), ("35.2", "33.3")]:
+            self.assertFalse(firms.keep({"latitude": lat, "longitude": lon, "confidence": "n", "type": "0"}))
 
     def test_download_caches_and_counts(self):
         calls = []
-        lat, lon = point_in("r10_c5")
+        lat, lon = point_in("r8_c20")
 
         class Resp(io.BytesIO):
             def __enter__(self): return self
@@ -59,7 +63,22 @@ class Firms(unittest.TestCase):
             firms.download([2021], tmp, key="x", pause=0, opener=opener)
             self.assertEqual(len(calls), n)  # second run used the cache
             counts = firms.daily_cell_counts(tmp)
-        self.assertEqual(counts[("2021-05-01", "r10_c5")], n)  # one kept row per cached chunk
+        self.assertEqual(counts[("2021-05-01", "r8_c20")], n)
+        self.assertTrue(all("/api/area/csv/x/VIIRS_SNPP_SP/25.5,35.5,45,42.5/" in u for u in calls))  # one kept row per cached chunk
+
+    def test_bad_request_stops_without_retry(self):
+        import urllib.error
+        calls = []
+
+        def opener(url, timeout=0):
+            calls.append(url)
+            raise urllib.error.HTTPError(url, 400, "Bad Request", {}, io.BytesIO(b"Invalid API call."))
+
+        with tempfile.TemporaryDirectory() as tmp:
+            with self.assertRaises(RuntimeError) as ctx:
+                firms.download([2021], tmp, key="secretkey", pause=0, opener=opener)
+        self.assertEqual(len(calls), 1)
+        self.assertNotIn("secretkey", str(ctx.exception))
 
     def test_missing_key(self):
         import os

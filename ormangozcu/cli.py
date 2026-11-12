@@ -43,7 +43,7 @@ def main(argv=None):
         print("Built %d rows for %d cells; share of missing weather: %s" % (len(df), len(cells), missing))
         return
     df = pd.read_csv(table)
-    info = {"fires": "NASA FIRMS %s, country TUR, May-October" % firms.SOURCE,
+    info = {"fires": "NASA FIRMS %s, area %s, inside the Türkiye border, May-October" % (firms.SOURCE, firms.AREA),
             "weather": "ERA5 daily via Open-Meteo archive: " + ", ".join(weather.VARIABLES),
             "cell_degrees": 0.5, "weather_block_degrees": 1.0}
     print(run(df, args.out, info).to_string(index=False))
