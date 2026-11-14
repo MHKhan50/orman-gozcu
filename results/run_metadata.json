@@ -1,0 +1,45 @@
+{
+  "project": "OrmanG\u00f6zc\u00fc",
+  "version": "0.1.0",
+  "cells": 366,
+  "train_years": [
+    2016,
+    2017,
+    2018,
+    2019
+  ],
+  "val_years": [
+    2020
+  ],
+  "test_years": [
+    2021,
+    2022,
+    2023,
+    2024
+  ],
+  "rows": {
+    "train": 267912,
+    "val": 66978,
+    "test": 267912
+  },
+  "positives": {
+    "train": 26648,
+    "val": 6568,
+    "test": 20283
+  },
+  "gbm_seeds": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "data": {
+    "fires": "NASA FIRMS VIIRS_SNPP_SP, area 25.5,35.5,45,42.5, inside the T\u00fcrkiye border, May-October",
+    "weather": "ERA5 daily via Open-Meteo archive: temperature_2m_max, precipitation_sum, wind_speed_10m_max, et0_fao_evapotranspiration",
+    "cell_degrees": 0.5,
+    "weather_block_degrees": 1.0
+  },
+  "python": "3.9.6",
+  "platform": "macOS-27.2-arm64-arm-64bit"
+}
