@@ -1,5 +1,7 @@
 # OrmanGözcü
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.24223204.svg)](https://doi.org/10.5281/zenodo.24223204)
+
 *A next-day forest-fire risk benchmark for Türkiye*
 
 In Turkish forests, lookouts watch for the first smoke from fire towers (*yangın gözetleme kulesi*). OrmanGözcü ("forest lookout") asks a related question with satellite data: given today's fire detections and weather, which areas are most likely to show a fire detection tomorrow, and how often would a warning be a false alarm or a miss?
